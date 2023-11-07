@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { navbarLinks } from "../utilities/Constants";
 import { Box, Stack } from "@mui/material";
 import { logo } from "../utilities/Constants";
+import { Link } from "react-router-dom";
 
 const Siderbar = () => {
   const [selectedLink, setSelectedLink] = useState("dashboard");
@@ -32,17 +33,17 @@ const Siderbar = () => {
       <Box>
         {navbarLinks.map((link, index) => (
           // replace div with Link tag from router
-          <div
+          <Link to='/' key={index}
             className={`sidebar_links ${
               selectedLink === link.text ? "active_link" : ""
             }`}
             onClick={() => setSelectedLink(link.text)}
           >
-            <span>
+            <span className="alignCenter">
               <link.icon />
             </span>
             <span>{link.text}</span>
-          </div>
+          </Link>
         ))}
       </Box>
     </Stack>

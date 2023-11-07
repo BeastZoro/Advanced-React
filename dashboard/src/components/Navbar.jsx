@@ -1,10 +1,13 @@
 import { Avatar, Badge, Box, IconButton, Paper, Stack } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ArrowDropDownSharpIcon from "@mui/icons-material/ArrowDropDownSharp";
 
 const Navbar = () => {
+  const [searchInput, setSearchInput] = useState("");
+  console.log(searchInput)
+
   return (
     <Stack
       direction="row"
@@ -18,7 +21,7 @@ const Navbar = () => {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <input type="text" value="" className="search" />
+        <input type="text" value={searchInput} className="search" onChange={(e) => setSearchInput(e.target.value)}/>
       </Paper>
       <Badge color="success" variant="dot" overlap="circular">
         <NotificationsIcon />

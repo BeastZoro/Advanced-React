@@ -4,30 +4,56 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
 
 .sidebar_links {
   display: flex;
-  /* align-items: center; */
+  align-items: center;
   gap: 15px;
   width: 100%;
   text-transform: capitalize;
-  padding: 10px 50px;
+  padding: 13px 50px;
   font-weight: 500;
   cursor: pointer;
-  transition: .2s ease-in;
+  transition: all 0.3s ease;
 }
 
-.active_link{
+.active_link {
   background-color: #47b747;
   color: white;
 }
 
-.search{
+.search {
   outline: none;
   border: none;
   text-indent: 3px;
   background-color: transparent;
- 
+  width: 150px;
+}
+
+.chart_menu {
+  border: 1px solid #ebebec;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  font-size: .9rem;
+  font-weight: 500;
+  color: rgb(59, 59, 59);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.alignCenter{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
