@@ -43,4 +43,4 @@ export const navbarLinks = [
 export const logo = 'https://desk.assiduus.in/content/images/2023/08/Assiduus_TM_Logo--1-.png'
 
 
-export const months = ['January', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+export const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']

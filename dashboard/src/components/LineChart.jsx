@@ -1,45 +1,59 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import { Box, Card, Stack } from "@mui/material";
+import { Box, Card, MenuItem, Select, Stack } from "@mui/material";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import { months } from "../utilities/Constants";
+
+import ChartHeader from "./ChartHeader";
 
 const LineChart = () => {
-  const [data] = useState([180, 250, 200, 150, 170, 190, 150, 170, 180]);
+  const [ChartData, setChartData] = useState([
+    180, 250, 200, 150, 170, 190, 150, 170, 180,
+  ]);
   const svgRef = useRef();
 
+  const updateChartData = (newData) => {
+    console.log("newData ", newData);
+    setChartData(newData);
+  };
+
   useEffect(() => {
-    //setting up the svg
+    //setting up the svg to render
     const width = 600;
     const height = 300;
     const svg = d3
       .select(svgRef.current)
       .attr("width", width)
       .attr("height", height)
-      .style("margin-top", "50px")
-      .style("margin-left", "20px")
+      .style("margin-block", "20px")
       .style("overflow", "visible")
-      .style("color", "black")
-      .style("font-weight", "bold");
+      .style("padding-inline", "20px")
+      .style("color", "#c7cacb")
+      .style("font-weight", "500");
 
-    //setting up the scales of the chart
-    const xScale = d3.scaleLinear().domain([9, 18]).range([0, width]);
+    // This is remove the previous line graph and update it with the newData received on change of months
+    svg.selectAll("*").remove();
 
-    const yScale = d3.scaleLinear().domain([0, height]).range([height, 0]);
+    //setting up the scales for the chart
+    const scaleX = d3
+      .scaleLinear()
+      .domain([0, ChartData.length - 1])
+      .range([0, width]);
 
-    const generateScaledLine = d3
+    const scaleY = d3.scaleLinear().domain([0, height]).range([height, 0]);
+
+    const createScaledLine = d3
       .line()
-      .x((d, i) => xScale(i + 9))
-      .y(yScale)
+      .x((d, index) => scaleX(index))
+      .y(scaleY)
       .curve(d3.curveCardinal);
 
-    //setting up the axes
+    // setting up the x and y axis
     const xAxis = d3
-      .axisBottom(xScale)
-      .ticks(data.length)
-      .tickFormat((i) => i + 1);
+      .axisBottom(scaleX)
+      .ticks(10)
+      .tickFormat((d) => d + 9);
 
-    // const yAxis = d3.axisLeft(yScale);
+    // const yAxis = d3.axisLeft(scaleY)
 
     const xAxisGroup = svg
       .append("g")
@@ -49,51 +63,33 @@ const LineChart = () => {
 
     xAxisGroup.selectAll("line").remove();
     xAxisGroup.select("path").remove();
-    // svg.append("g").call(yAxis);
 
-    //setting up the data for the svg
+    // const yAxisGroup = svg.append('g').call(yAxis)
 
     svg
       .selectAll(".line")
-      .data([data])
+      .data([ChartData])
       .join("path")
-      .attr("d", (d) => generateScaledLine(d))
+      .attr("d", (d) => createScaledLine(d))
       .attr("fill", "none")
       .attr("stroke", "#47b747")
       .attr("stroke-width", 4);
-  }, [data]);
+  }, [ChartData]);
 
   return (
     <Card
       sx={{
-        width: "600px",
-        height: "400px",
+        width: "650px",
+        height: "440px",
         marginTop: "30px",
         paddingBlock: "15px",
       }}
     >
-      <Stack
-        flexDirection="row"
-        justifyContent="space-between"
-        px='20px'
-        sx={{ borderBottom: "1px solid #ebebec", paddingBottom: "20px" }}
-      >
-        <p>Checking account</p>
-        <Stack flexDirection="row" gap="20px">
-          <Box className="chart_menu">
-            <span>Manage</span>
-            <span className="alignCenter">
-              <KeyboardArrowDownRoundedIcon />
-            </span>
-          </Box>
-          <Box className="chart_menu">
-            <span>January</span>
-            <span className="alignCenter">
-              <KeyboardArrowDownRoundedIcon />
-            </span>
-          </Box>
-        </Stack>
-      </Stack>
+      <ChartHeader
+        title={"Checking account"}
+        LineChartData={ChartData}
+        updateChartData={updateChartData}
+      />
       <svg ref={svgRef}></svg>
     </Card>
   );

@@ -45,15 +45,31 @@ a {
   align-items: center;
   gap: 5px;
   padding: 4px 8px;
-  font-size: .9rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: rgb(59, 59, 59);
   border-radius: 3px;
   cursor: pointer;
+  position: relative;
 }
 
-.alignCenter{
+.alignCenter {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+select {
+  font-size: 0.8rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  text-transform: capitalize;
+  font-weight: 500;
+  color: rgb(59, 59, 59);
+  padding-right: 5px;
+}
+
+select option {
+  text-transform: capitalize;
 }
