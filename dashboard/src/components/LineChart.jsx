@@ -19,7 +19,7 @@ const LineChart = () => {
   useEffect(() => {
     //setting up the svg to render
     const width = 600;
-    const height = 300;
+    const height = 330;
     const svg = d3
       .select(svgRef.current)
       .attr("width", width)
@@ -80,7 +80,7 @@ const LineChart = () => {
     <Card
       sx={{
         width: "650px",
-        height: "440px",
+        height: "460px",
         marginTop: "30px",
         paddingBlock: "15px",
       }}
