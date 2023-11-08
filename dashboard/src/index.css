@@ -37,6 +37,11 @@ a {
   width: 150px;
 }
 
+.chart_head_title{
+  font-weight: 500;
+
+}
+
 .chart_menu {
   border: 1px solid #ebebec;
   width: fit-content;
@@ -72,4 +77,15 @@ select {
 
 select option {
   text-transform: capitalize;
+}
+
+.invoice_btn{
+  border: 0;
+  background-color: #e8eefd;
+  color: #64bb74;
+  font-weight: 600;
+  font-size: .9rem;
+  padding: 7px 12px;
+  border-radius: 3px;
+  cursor: pointer;
 }

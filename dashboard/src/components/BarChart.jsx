@@ -1,68 +1,59 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { Box, Card, Stack } from "@mui/material";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import { months } from "../utilities/Constants";
+import { BarData } from "../utilities/Constants";
 
 const LineChart = () => {
-  const [data] = useState([180, 250, 200, 150, 170, 190, 150, 170, 180]);
+  const [data] = useState([100, 250, 200, 150, 170, 190]);
   const svgRef = useRef();
 
   useEffect(() => {
-    // Setting up the svg
-    const margin = { top: 20, right: 20, bottom: 40, left: 40 };
-    const width = 800 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
+    //setting up the svg to render
+    const width = 600;
+    const height = 300;
 
     const svg = d3
       .select(svgRef.current)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .style("margin-block", "20px")
+      .style("overflow", "visible")
+      .style("padding-inline", "20px")
+      .style("color", "#c7cacb")
+      .style("font-weight", "500");
 
-    // Setting up the scales of the chart
-    const xScale = d3.scaleLinear().domain([0, data.length]).range([0, width]);
-    const yScale = d3.scaleLinear().domain([0, d3.max(data)]).range([height, 0]);
+    //setting up the scales for the chart
 
-    const generateScaledLine = d3
-      .line()
-      .x((d, i) => xScale(i))
-      .y(yScale)
-      .curve(d3.curveCardinal);
+    const xScale = d3
+      .scaleBand()
+      .domain(data.map((d, i) => i))
+      .range([0, width])
+      .padding(.9);
 
-    // Setting up the x-axis ticks as text elements
-    const xAxis = d3
-      .axisBottom(xScale)
-      .ticks(10)
-      .tickFormat((d) => d + 9) // Adjust the tick format
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(data)])
+      .range([height, 0]);
 
-    svg
-      .append("g")
-      .attr("transform", `translate(0, ${height})`)
-      .call(xAxis)
-      .selectAll(".tick text")
-      .style("font-size", "14px");
+    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
-    // Remove the x-axis line
-    svg.select(".domain").remove();
-    svg.selectAll('line').remove()
-
-    // Setting up the data for the svg
-    svg
-      .append("path")
-      .datum(data)
-      .attr("d", generateScaledLine)
-      .attr("fill", "none")
-      .attr("stroke", "#47b747")
-      .attr("stroke-width", 4);
+     svg
+     .selectAll("rect")
+     .data(data)
+     .enter()
+     .append("rect")
+     .attr("x", (d, i) => xScale(i))
+     .attr("y", (d) => yScale(d))
+     .attr("width", xScale.bandwidth())
+     .attr("height", (d) => height - yScale(d))
+     .attr("fill", (d, i) => colorScale(i));
   }, [data]);
 
   return (
     <Card
       sx={{
-        width: "850px",
-        height: "400px",
+        width: { xs: "90%", md: "700px" },
+        height: "460px",
         marginTop: "30px",
         paddingBlock: "15px",
       }}
@@ -70,24 +61,11 @@ const LineChart = () => {
       <Stack
         flexDirection="row"
         justifyContent="space-between"
-        px='20px'
+        px="20px"
         sx={{ borderBottom: "1px solid #ebebec", paddingBottom: "20px" }}
       >
-        <p>Checking account</p>
-        <Stack flexDirection="row" gap="20px">
-          <Box className="chart_menu">
-            <span>Manage</span>
-            <span className="alignCenter">
-              <KeyboardArrowDownRoundedIcon />
-            </span>
-          </Box>
-          <Box className="chart_menu">
-            <span>January</span>
-            <span className="alignCenter">
-              <KeyboardArrowDownRoundedIcon />
-            </span>
-          </Box>
-        </Stack>
+        <p className="chart_head_title">Invoices owed to you</p>
+        <button className="invoice_btn">New Sales Invoice</button>
       </Stack>
       <svg ref={svgRef}></svg>
     </Card>

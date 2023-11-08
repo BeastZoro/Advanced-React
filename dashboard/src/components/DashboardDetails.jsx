@@ -21,7 +21,9 @@ const DashboardDetails = () => {
       }}
     >
       <LineChart />
-      {/* <BarChart /> */}
+      <BarChart />
+      <LineChart />
+      <LineChart />
     </Stack>
   );
 };

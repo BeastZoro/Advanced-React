@@ -30,7 +30,7 @@ const ChartHeader = ({ title, LineChartData, updateChartData }) => {
       px="20px"
       sx={{ borderBottom: "1px solid #ebebec", paddingBottom: "20px" }}
     >
-      <p>{title}</p>
+      <p className="chart_head_title">{title}</p>
       <Stack flexDirection="row" gap="10px">
         <Box className="chart_menu" onClick={randomLineChartData}>
           <span>Manage</span>

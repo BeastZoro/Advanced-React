@@ -7,7 +7,7 @@ import ChartHeader from "./ChartHeader";
 
 const LineChart = () => {
   const [ChartData, setChartData] = useState([
-    180, 250, 200, 150, 170, 190, 150, 170, 180,
+    180, 250, 200, 150, 170, 190, 150, 170, 180, 180
   ]);
   const svgRef = useRef();
 
@@ -79,7 +79,7 @@ const LineChart = () => {
   return (
     <Card
       sx={{
-        width: "650px",
+        width: {xs:'90%', md: '700px'},
         height: "460px",
         marginTop: "30px",
         paddingBlock: "15px",
