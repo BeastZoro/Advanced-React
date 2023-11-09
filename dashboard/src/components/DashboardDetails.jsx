@@ -2,6 +2,7 @@ import { Stack } from "@mui/material";
 import React from "react";
 import BarChart from "./BarChart";
 import LineChart from "./LineChart";
+import NewInvoice from "./NewInvoicefile";
 
 const DashboardDetails = () => {
   return (
@@ -13,7 +14,6 @@ const DashboardDetails = () => {
     py='50px'
       sx={{
         background: "#f6f7f9",
-        // border: "1px solid",
         marginLeft: "250px",
         width: "100%",
         minHeighteight: "100vh",
@@ -22,8 +22,6 @@ const DashboardDetails = () => {
     >
       <LineChart />
       <BarChart />
-      <LineChart />
-      <LineChart />
     </Stack>
   );
 };

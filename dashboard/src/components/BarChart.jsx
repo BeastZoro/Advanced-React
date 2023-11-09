@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { Box, Card, Stack } from "@mui/material";
 import { BarData } from "../utilities/Constants";
+import NewInvoice from "./NewInvoicefile";
+import NewInvoiceFile from "./NewInvoicefile";
 
-const LineChart = () => {
-  const [data] = useState([100, 250, 200, 150, 170, 190]);
+const BarChart = () => {
+  const [data] = useState(BarData);
+  const [NewInvoice, setNewInvoice] = useState(false);
   const svgRef = useRef();
 
   useEffect(() => {
@@ -15,38 +18,54 @@ const LineChart = () => {
     const svg = d3
       .select(svgRef.current)
       .attr("width", "100%")
-      .attr("height", "100%")
+      .attr("height", height)
       .style("margin-block", "20px")
       .style("overflow", "visible")
       .style("padding-inline", "20px")
       .style("color", "#c7cacb")
-      .style("font-weight", "500");
+      .style("font-size", "40px");
 
     //setting up the scales for the chart
 
     const xScale = d3
       .scaleBand()
-      .domain(data.map((d, i) => i))
+      .domain(data.map((d, i) => d.tick))
       .range([0, width])
-      .padding(.9);
+      .padding(0.87);
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data)])
+      .domain([0, d3.max(data, (d) => d.value)])
       .range([height, 0]);
 
-    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+    // setting up the x axis
+    const xAxis = d3.axisBottom(xScale);
+    svg
+      .append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(xAxis)
+      .selectAll("text")
+      .style("font-size", "14px")
+      .style("text-transform", "capitalize")
+      .style("font-weight", "500")
+      .style("margin-inline", "20px");
 
-     svg
-     .selectAll("rect")
-     .data(data)
-     .enter()
-     .append("rect")
-     .attr("x", (d, i) => xScale(i))
-     .attr("y", (d) => yScale(d))
-     .attr("width", xScale.bandwidth())
-     .attr("height", (d) => height - yScale(d))
-     .attr("fill", (d, i) => colorScale(i));
+    // removing the lines above ticks
+    svg.selectAll("line").remove();
+    svg.select("path").remove();
+
+    svg
+      .selectAll("rect")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("x", (d, i) => xScale(d.tick))
+      .attr("y", (d) => yScale(d.value))
+      .attr("width", xScale.bandwidth())
+      .attr("height", (d) => height - yScale(d.value))
+      .attr("fill", "#47b747")
+      .attr("rx", 3)
+      .attr("ry", 3);
   }, [data]);
 
   return (
@@ -55,21 +74,53 @@ const LineChart = () => {
         width: { xs: "90%", md: "700px" },
         height: "460px",
         marginTop: "30px",
+        marginInline: "10px",
         paddingBlock: "15px",
+        position: "relative",
       }}
     >
       <Stack
         flexDirection="row"
         justifyContent="space-between"
         px="20px"
-        sx={{ borderBottom: "1px solid #ebebec", paddingBottom: "20px" }}
+        sx={{
+          borderBottom: "1px solid #ebebec",
+          paddingBottom: "20px",
+          marginBottom: "20PX",
+        }}
       >
         <p className="chart_head_title">Invoices owed to you</p>
-        <button className="invoice_btn">New Sales Invoice</button>
+        <button
+          className="invoice_btn"
+          onClick={() => setNewInvoice(!NewInvoice)}
+        >
+          New Sales Invoice
+        </button>
       </Stack>
-      <svg ref={svgRef}></svg>
+      <Box
+        style={{
+          background: `${NewInvoice ? "rgba(71, 183, 71, 0.37" : ""}`,
+          WebkitBackdropFilter: `${NewInvoice && "blur(11px)"}`,
+          backdropFilter: `${NewInvoice && "blur(11px)"}`,
+        }}
+      >
+        <svg ref={svgRef}></svg>
+      </Box>
+
+      {NewInvoice && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <NewInvoiceFile />
+        </Box>
+      )}
     </Card>
   );
 };
 
-export default LineChart;
+export default BarChart;

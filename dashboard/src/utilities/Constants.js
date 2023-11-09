@@ -47,27 +47,27 @@ export const months = ['january', 'february', 'march', 'april', 'may', 'june', '
 
 export const BarData = [
     {
-        value: 80,
+        value: 10,
         tick: 'older'
     },
     {
-        value: 120,
+        value: 25,
         tick: 'jan 01-08'
     },
     {
-        value: 200,
+        value: 50,
         tick: 'jan 09-16'
     },
     {
-        value: 150,
+        value: 30,
         tick: 'jan 17-24'
     },
     {
-        value: 180,
+        value: 35,
         tick: 'jan 25-31'
     },
     {
-        value: 160,
+        value: 27,
         tick: 'future'
     }
 ]
