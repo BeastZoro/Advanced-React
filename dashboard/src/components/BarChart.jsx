@@ -1,19 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { Box, Card, Stack } from "@mui/material";
-import { BarData } from "../utilities/Constants";
-import NewInvoice from "./NewInvoicefile";
 import NewInvoiceFile from "./NewInvoicefile";
 
-const BarChart = () => {
-  const [data] = useState(BarData);
+const BarChart = ({width, height, bardata}) => {
+  const [data] = useState(bardata);
   const [NewInvoice, setNewInvoice] = useState(false);
   const svgRef = useRef();
 
   useEffect(() => {
     //setting up the svg to render
-    const width = 600;
-    const height = 300;
+    // const width = 600;
+    // const height = 300;
 
     const svg = d3
       .select(svgRef.current)
@@ -23,7 +21,6 @@ const BarChart = () => {
       .style("overflow", "visible")
       .style("padding-inline", "20px")
       .style("color", "#c7cacb")
-      .style("font-size", "40px");
 
     //setting up the scales for the chart
 
@@ -71,7 +68,7 @@ const BarChart = () => {
   return (
     <Card
       sx={{
-        width: { xs: "90%", md: "700px" },
+        width: { xs: "90%", md: width },
         height: "460px",
         marginTop: "30px",
         marginInline: "10px",

@@ -95,6 +95,7 @@ select option {
   height: 100%;
   opacity: 0;
   /* z-index: -1; */
+  cursor: pointer;
 }
 
 .background_blur {
@@ -104,4 +105,25 @@ select option {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5.8px);
   -webkit-backdrop-filter: blur(5.8px);
+}
+
+.cash_flow{
+  width: 17px;
+  height: 17px;
+  margin: 0 7px;
+  border: 0;
+  border-radius: 4px;
+}
+
+.cash_in{
+  background-color: #02bb7d;
+}
+
+.cash_out{
+  background-color: #47b747;
+}
+
+p{
+  display: flex;
+  align-items: center;
 }

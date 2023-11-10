@@ -5,24 +5,20 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 
 import ChartHeader from "./ChartHeader";
 
-const LineChart = () => {
-  const [ChartData, setChartData] = useState([
-    180, 250, 200, 150, 170, 190, 150, 170, 180, 180
-  ]);
+const LineChart = ({width, height, data}) => {
+  const [ChartData, setChartData] = useState(data);
   const svgRef = useRef();
 
   const updateChartData = (newData) => {
-    console.log("newData ", newData);
     setChartData(newData);
   };
 
   useEffect(() => {
     //setting up the svg to render
-    const width = 600;
-    const height = 330;
+
     const svg = d3
       .select(svgRef.current)
-      .attr("width", width)
+      .attr("width", '100%')
       .attr("height", height)
       .style("margin-block", "20px")
       .style("overflow", "visible")
@@ -79,7 +75,7 @@ const LineChart = () => {
   return (
     <Card
       sx={{
-        width: {xs:'90%', md: '700px'},
+        width: {xs:'90%', md: width},
         height: "460px",
         marginTop: "30px",
         paddingBlock: "15px",

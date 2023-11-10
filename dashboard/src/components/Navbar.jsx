@@ -1,12 +1,13 @@
 import { Avatar, Badge, Box, IconButton, Paper, Stack } from "@mui/material";
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ArrowDropDownSharpIcon from "@mui/icons-material/ArrowDropDownSharp";
 
 const Navbar = () => {
   const [searchInput, setSearchInput] = useState("");
-  console.log(searchInput)
+  console.log(searchInput);
 
   return (
     <Stack
@@ -17,11 +18,22 @@ const Navbar = () => {
       pr="50px"
       height="70px"
     >
-      <Paper sx={{ boxShadow: "none", background: "#f6f7f9" }}>
+      <Paper
+        sx={{
+          boxShadow: "none",
+          background: "#f6f7f9",
+          display: { xs: "none", md: "block" },
+        }}
+      >
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <input type="text" value={searchInput} className="search" onChange={(e) => setSearchInput(e.target.value)}/>
+        <input
+          type="text"
+          value={searchInput}
+          className="search"
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
       </Paper>
       <Badge color="success" variant="dot" overlap="circular">
         <NotificationsIcon />
@@ -37,7 +49,9 @@ const Navbar = () => {
           marginLeft: "30px",
         }}
       >
-        {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
+        <Avatar>
+          <AccountCircleIcon />
+        </Avatar>
         <ArrowDropDownSharpIcon />
       </Box>
     </Stack>

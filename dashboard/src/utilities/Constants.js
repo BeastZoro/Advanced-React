@@ -43,6 +43,10 @@ export const navbarLinks = [
 export const logo = 'https://desk.assiduus.in/content/images/2023/08/Assiduus_TM_Logo--1-.png'
 
 
+export const LineChartData = [
+    180, 250, 200, 150, 170, 190, 150, 170, 180, 180, 180
+]
+
 export const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
 
 export const BarData = [
@@ -70,4 +74,67 @@ export const BarData = [
         value: 27,
         tick: 'future'
     }
+]
+
+
+export const CashFlow = [
+    {
+        in: 20,
+        out: 10,
+        tick: 'august'
+    },
+    {
+        in: 40,
+        out: 25,
+        tick: 'september'
+    },
+    {
+        in: 60,
+        out: 45,
+        tick: 'october'
+    },
+    {
+        in: 50,
+        out: 45,
+        tick: 'november'
+    },
+    {
+        in: 55,
+        out: 50,
+        tick: 'december'
+    },
+    {
+        in: 70,
+        out: 30,
+        tick: 'january'
+    }
+]
+
+export const AccWatchList = [
+    {
+        account: 'Sales',
+        currMon: 1194.58,
+        ytd: 11418.29
+    },
+    {
+        account: 'Advertising',
+        currMon: 6879.02,
+        ytd: 9271.36
+    },
+    {
+        account: 'Inventory',
+        currMon: 4692.26,
+        ytd: 9768.09
+    },
+    {
+        account: 'Entertainment',
+        currMon: 0.00,
+        ytd: 0.00
+    },
+    {
+        account: 'Product',
+        currMon: 4652.10,
+        ytd: 2529.90
+    },
+
 ]
