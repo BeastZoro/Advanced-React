@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const useFetchApiData = (url) => {
+const useFetchApiData =  (url) => {
   const [data, setData] = useState(null);
 
   const BASE_URL = "https://youtube-v31.p.rapidapi.com";
