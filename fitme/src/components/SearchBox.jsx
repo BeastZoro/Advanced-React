@@ -1,9 +1,28 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { exerciseOptions, fetchData } from "../utilities/fetchData";
+import { HorizantalScroll } from "./index";
+import { ExerciseContext } from "../context/Context";
 
 const SearchBox = () => {
   const [searchText, setsearchText] = useState("");
+  const [searchedExercise, setSearchedExercise] = useState([]);
+
+  const [bodyParts, setBodyParts] = useState([]);
+
+  const {Exercises, updateExercises} = useContext(ExerciseContext)
+
+  useEffect(() => {
+    const fetchExercisesCategories = async () => {
+      const bodyPartsInfo = await fetchData(
+        "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
+        exerciseOptions
+      );
+
+      setBodyParts(["all", ...bodyPartsInfo]);
+    };
+    fetchExercisesCategories();
+  }, []);
 
   const handleSearch = async () => {
     if (searchText) {
@@ -12,9 +31,20 @@ const SearchBox = () => {
         exerciseOptions
       );
 
-      console.log(exerciseData);
+      const searchedResponse = exerciseData.filter(
+        (exercise) =>
+          exercise.bodyPart.toLowerCase().includes(searchText) ||
+          exercise.target.toLowerCase().includes(searchText) ||
+          exercise.name.toLowerCase().includes(searchText) ||
+          exercise.equipment.toLowerCase().includes(searchText)
+      );
+      setsearchText("");
+      updateExercises(searchedResponse);
+      // console.log(exerciseData)
+      // console.log("Exercises",Exercises)
     }
   };
+
   return (
     <Stack alignItems="center" justifyContent="center" p="20px" mt="37px">
       <Typography
@@ -56,6 +86,10 @@ const SearchBox = () => {
         >
           Search
         </Button>
+      </Box>
+
+      <Box sx={{ width: "100%", position: "relative", p: "20px" }}>
+        <HorizantalScroll data={bodyParts} />
       </Box>
     </Stack>
   );
