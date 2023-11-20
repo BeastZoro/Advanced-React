@@ -1,10 +1,13 @@
 import { Box, Stack, Typography } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import gym from "../assets/icons/gym.png";
-import { BodyPartContext } from "../context/Context";
+import { BodyPartContext, ExerciseContext } from "../context/Context";
+import { exerciseOptions, fetchData } from "../utilities/fetchData";
 
 const CategoryBox = ({ bodyPart }) => {
   const { updateBodyPart, BodyPart } = useContext(BodyPartContext);
+  const { Exercises, updateExercises } = useContext(ExerciseContext);
+
 
   return (
     <Stack
@@ -22,10 +25,19 @@ const CategoryBox = ({ bodyPart }) => {
         textTransform: "capitalize",
         fontSize: "22px",
       }}
-      onClick={() => updateBodyPart(bodyPart)}
+      onClick={() => {
+        updateBodyPart(bodyPart);
+      }}
     >
       <img src={gym} alt="cat-icon" width="40px" height="40px" />
-      <Typography fontSize='24px' fontWeight='bold' color='#3a1212' textTransform='capitalize'>{bodyPart}</Typography>
+      <Typography
+        fontSize="24px"
+        fontWeight="bold"
+        color="#3a1212"
+        textTransform="capitalize"
+      >
+        {bodyPart}
+      </Typography>
     </Stack>
   );
 };

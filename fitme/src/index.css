@@ -92,6 +92,16 @@ body {
   transform: scale(1.1, 1.1);
 }
 
+.exercise_btn{
+  background-color: transparent;
+  padding: 7px 15px;
+  border-radius: 10px;
+  text-transform: capitalize;
+  color: #FF2625;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .search-btn:hover {
   color: #FF2625 !important;
   border: 1px solid #FF2625 !important;
@@ -134,6 +144,10 @@ body {
     width: 320px;
     height: 300px;
   }
+
+}
+
+.exercise_card{
 
 }
 

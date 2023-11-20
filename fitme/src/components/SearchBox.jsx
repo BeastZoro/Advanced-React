@@ -27,7 +27,7 @@ const SearchBox = () => {
   const handleSearch = async () => {
     if (searchText) {
       const exerciseData = await fetchData(
-        "https://exercisedb.p.rapidapi.com/exercises",
+        "https://exercisedb.p.rapidapi.com/exercises?limit=200",
         exerciseOptions
       );
 
@@ -40,7 +40,7 @@ const SearchBox = () => {
       );
       setsearchText("");
       updateExercises(searchedResponse);
-      // console.log(exerciseData)
+      console.log(exerciseData)
       // console.log("Exercises",Exercises)
     }
   };
